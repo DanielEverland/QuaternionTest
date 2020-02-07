@@ -5,24 +5,41 @@ using UnityEngine;
 
 public class QuaternionTest : MonoBehaviour
 {
+    [SerializeField]
+    private Vector3 rotation = new Vector3(0, 0, 5);
+    [SerializeField]
+    private Vector3 point = new Vector3(1, 0, 0);
+
     private static Vector3 ArtemisOffset = new Vector3(0, 0, 0);
     private static Vector3 UnityOffset = new Vector3(0, 0, 0);
 
     private static float DummyScale = 0.3f;
 
     private TestHandler testHandler;
+    private Vector3 oldPoint;
+    private Vector3 oldRotation;
 
     private void Awake()
     {
         testHandler = new TestHandler(
             new TestCase(new QuaternionFactory(QuaternionType.Unity), UnityOffset, "Unity"),
             new TestCase(new QuaternionFactory(QuaternionType.Artemis), ArtemisOffset, "Artemis"));
-
-        testHandler.SetPoint(new Vector3(0, 1, 0));
-        testHandler.FromEuler(new Vector3(5, -5, 5));
     }
     private void Update()
     {
+        if(rotation != oldRotation)
+        {
+            oldRotation = rotation;
+            testHandler.FromEuler(rotation);
+        }
+            
+
+        if(point != oldPoint)
+        {
+            oldPoint = point;
+            testHandler.SetPoint(point);
+        }            
+
         testHandler.Rotate();
         testHandler.UpdateState();
     }
