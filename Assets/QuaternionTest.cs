@@ -22,8 +22,8 @@ public class QuaternionTest : MonoBehaviour
     private void Awake()
     {
         testHandler = new TestHandler(
-            new TestCase(new QuaternionFactory(QuaternionType.Unity), UnityOffset, "Unity"),
-            new TestCase(new QuaternionFactory(QuaternionType.Artemis), ArtemisOffset, "Artemis"));
+            new TestCase(new QuaternionFactory(QuaternionType.Unity), UnityOffset, "Unity", Color.blue),
+            new TestCase(new QuaternionFactory(QuaternionType.Artemis), ArtemisOffset, "Artemis", Color.red));
     }
     private void Update()
     {
@@ -85,16 +85,18 @@ public class QuaternionTest : MonoBehaviour
     }
     private class TestCase
     {
-        public TestCase(QuaternionFactory factory, Vector3 offset, string dummyName)
+        public TestCase(QuaternionFactory factory, Vector3 offset, string dummyName, Color color)
         {
             this.factory = factory;
             this.offset = offset;
             this.dummyName = dummyName;
+            this.circle = new DebugCircle(color);
         }
 
         private readonly QuaternionFactory factory;
         private readonly Vector3 offset;
         private readonly string dummyName;
+        private readonly DebugCircle circle;
 
         private IQuaternion quaternion;
         private GameObject dummy;
@@ -120,6 +122,7 @@ public class QuaternionTest : MonoBehaviour
                 return;
 
             dummy.transform.position = dummyRepresentation + offset;
+            circle.AddPosition(dummy.transform.position);
         }
         private void CreateDummyIfNoneExists()
         {
