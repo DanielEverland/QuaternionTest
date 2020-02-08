@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ArtemisQuaternion : IQuaternion
 {
-    private double X;
-    private double Y;
-    private double Z;
-    private double W;
+    public double X;
+    public double Y;
+    public double Z;
+    public double W;
 
     public void FromEuler(Vector3 euler)
     {
@@ -68,6 +68,6 @@ public class ArtemisQuaternion : IQuaternion
 	}
     public override string ToString()
     {
-        return $"({X.ToString("F3")}, {Y.ToString("F3")}, {Z.ToString("F3")}, {W.ToString("F3")})";
+        return $"({X.ToString("F5")}, {Y.ToString("F5")}, {Z.ToString("F5")}, {W.ToString("F5")})";
     }
 }

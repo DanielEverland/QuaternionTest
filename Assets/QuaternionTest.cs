@@ -7,8 +7,8 @@ public class QuaternionTest : MonoBehaviour
 {
     [SerializeField]
     private Vector3 rotation = new Vector3(0, 0, 5);
-    //[SerializeField]
-    //private Vector3 point = new Vector3(1, 0, 0);
+    [SerializeField]
+    private Vector3 point = new Vector3(1, 0, 0);
 
     private static Vector3 ArtemisOffset = new Vector3(0, 0, 0);
     private static Vector3 UnityOffset = new Vector3(0, 0, 0);
@@ -37,11 +37,11 @@ public class QuaternionTest : MonoBehaviour
         //testHandler.FromEuler(new Vector3(Mathf.Cos(Time.time) * rotation.x, Mathf.Sin(Time.time) * rotation.y, Mathf.Cos(Time.time) * rotation.z));
 
 
-        //if (point != oldPoint)
-        //{
-        //    oldPoint = point;
-        //    testHandler.SetPoint(point);
-        //}            
+        if (point != oldPoint)
+        {
+            oldPoint = point;
+            testHandler.SetPoint(point);
+        }
 
         testHandler.Rotate();
         testHandler.UpdateState();
