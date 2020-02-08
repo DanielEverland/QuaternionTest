@@ -11,11 +11,6 @@ public class ArtemisQuaternion : IQuaternion
 
     public void FromEuler(Vector3 euler)
     {
-		//Vector3 temp = euler;
-		//euler.x = temp.y;
-		//euler.y = temp.z;
-		//euler.z = temp.x;
-
 		euler.x *= Mathf.Deg2Rad;
 		euler.y *= Mathf.Deg2Rad;
 		euler.z *= Mathf.Deg2Rad;
