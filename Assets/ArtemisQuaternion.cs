@@ -11,27 +11,29 @@ public class ArtemisQuaternion : IQuaternion
 
     public void FromEuler(Vector3 euler)
     {
-		Vector3 temp = euler;
-		euler.x = temp.y;
-		euler.y = temp.z;
-		euler.z = temp.x;
+		//Vector3 temp = euler;
+		//euler.x = temp.y;
+		//euler.y = temp.z;
+		//euler.z = temp.x;
 
 		euler.x *= Mathf.Deg2Rad;
 		euler.y *= Mathf.Deg2Rad;
 		euler.z *= Mathf.Deg2Rad;
 
 		// Abbreviations for the various angular functions
-		double xCos = Mathf.Cos(euler.x / 2);
-		double xSin = Mathf.Sin(euler.x / 2);
 		double yCos = Mathf.Cos(euler.y / 2);
 		double ySin = Mathf.Sin(euler.y / 2);
 		double zCos = Mathf.Cos(euler.z / 2);
 		double zSin = Mathf.Sin(euler.z / 2);
+		double xCos = Mathf.Cos(euler.x / 2);
+		double xSin = Mathf.Sin(euler.x / 2);
 
-		X = xSin * ySin * zCos + xCos * yCos * zSin;
-		Y = xSin * yCos * zCos + xCos * ySin * zSin;
-		Z = xCos * ySin * zCos - xSin * yCos * zSin;
-		W = xCos * yCos * zCos - xSin * ySin * zSin;
+		Debug.Log($"xCos: {yCos.ToString("F3")}\nxSin: {ySin.ToString("F3")}\nyCos: {zCos.ToString("F3")}\nySin: {zSin.ToString("F3")}\nzCos: {xCos.ToString("F3")}\nzSin: {xSin.ToString("F3")}");
+
+		X = ySin * zSin * xCos + yCos * zCos * xSin;
+		Y = ySin * zCos * xCos + yCos * zSin * xSin;
+		Z = yCos * zSin * xCos - ySin * zCos * xSin;
+		W = yCos * zCos * xCos - ySin * zSin * xSin;
 	}
 	public Vector3 Rotate(Vector3 point)
 	{
@@ -54,8 +56,23 @@ public class ArtemisQuaternion : IQuaternion
 		res.z = (float)((xz - wy) * point.x + (yz + wx) * point.y + (1.0 - (xx + yy)) * point.z);
 		return res;
 	}
+	public Vector3 ToEuler()
+	{
+		Vector3 euler;
+
+		euler.x = Mathf.Atan2((float)(2 * X * W - 2 * Y * Z), (float)(1 - 2 * X * X - 2 * Z * Z));
+		euler.y = Mathf.Atan2((float)(2 * Y * W - 2 * X * Z), (float)(1 - 2 * Y * Y - 2 * Z * Z));
+		euler.z = Mathf.Asin((float)(2 * X * Y + 2 * Z * W));
+
+
+		euler.x *= Mathf.Rad2Deg;
+		euler.y *= Mathf.Rad2Deg;
+		euler.z *= Mathf.Rad2Deg;
+
+		return euler;
+	}
     public override string ToString()
     {
-        return $"({X}, {Y}, {Z}, {W})";
+        return $"({X.ToString("F3")}, {Y.ToString("F3")}, {Z.ToString("F3")}, {W.ToString("F3")})";
     }
 }

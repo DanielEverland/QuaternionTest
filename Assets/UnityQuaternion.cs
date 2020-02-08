@@ -14,8 +14,12 @@ public class UnityQuaternion : IQuaternion
     {
         return quaternion * point;
     }
+    public Vector3 ToEuler()
+    {
+        return quaternion.eulerAngles;
+    }
     public override string ToString()
     {
-        return quaternion.ToString();
+        return $"({quaternion.x.ToString("F3")}, {quaternion.y.ToString("F3")}, {quaternion.z.ToString("F3")}, {quaternion.w.ToString("F3")})";
     }
 }

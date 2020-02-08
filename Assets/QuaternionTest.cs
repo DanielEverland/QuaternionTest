@@ -29,12 +29,12 @@ public class QuaternionTest : MonoBehaviour
     }
     private void Update()
     {
-        //if(rotation != oldRotation)
-        //{
-        //    oldRotation = rotation;
-            
-        //}
-        testHandler.FromEuler(new Vector3(Mathf.Cos(Time.time) * rotation.x, Mathf.Sin(Time.time) * rotation.y, Mathf.Cos(Time.time) * rotation.z));
+        if (rotation != oldRotation)
+        {
+            oldRotation = rotation;
+            testHandler.FromEuler(rotation);
+        }
+        //testHandler.FromEuler(new Vector3(Mathf.Cos(Time.time) * rotation.x, Mathf.Sin(Time.time) * rotation.y, Mathf.Cos(Time.time) * rotation.z));
 
 
         //if (point != oldPoint)
@@ -112,6 +112,7 @@ public class QuaternionTest : MonoBehaviour
         public void FromEuler(Vector3 euler)
         {
             quaternion = factory.FromEuler(euler);
+            Debug.Log(dummyName + ":\t" + quaternion + "\n" + quaternion.ToEuler());
         }
         public void SetPoint(Vector3 point)
         {

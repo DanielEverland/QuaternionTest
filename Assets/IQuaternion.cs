@@ -6,4 +6,5 @@ public interface IQuaternion
 {
     void FromEuler(Vector3 euler);
     Vector3 Rotate(Vector3 point);
+    Vector3 ToEuler();
 }
